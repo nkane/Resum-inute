@@ -13,6 +13,7 @@ func initRoutes(router *gin.Engine) {
 	videoRouter := router.Group("video")
 	{
 		videoRouter.POST("", PostVideo)
+		videoRouter.GET("test", GetVideo)
 	}
 
 }

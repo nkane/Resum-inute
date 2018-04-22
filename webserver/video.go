@@ -2,6 +2,7 @@ package main
 
 import (
 	"encoding/json"
+	"io/ioutil"
 	"log"
 	"net/http"
 	"os"
@@ -56,8 +57,17 @@ func PostVideo(c *gin.Context) {
 		if err != nil {
 			c.AbortWithStatus(http.StatusInternalServerError)
 			return
-
 		}
 		c.JSON(http.StatusOK, v)
 	}
+}
+
+func GetVideo(c *gin.Context) {
+	data, err := ioutil.ReadFile(string(tmpPath + "test-video.mp4"))
+	if err != nil {
+		c.AbortWithStatus(http.StatusInternalServerError)
+		return
+	}
+	c.Header("Content-Type", "video/mp4")
+	c.Data(0, "video", data)
 }
